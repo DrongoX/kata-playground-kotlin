@@ -1,6 +1,7 @@
 package uk.zinch.kata
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import uk.zinch.kata.Rover.Orientation.*
 
@@ -201,4 +202,125 @@ class RoverSpec {
     // expect
     assertThat(updatedRover).isEqualTo(Rover(3, 8, NORTH))
   }
+
+  @Test
+  fun `The rover turns to the east when I enter a 'R' command and the orientation is NORTH`() {
+    // given
+    val rover = Rover(3, 8, NORTH)
+    // when
+    val updatedRover = rover.receiveMission('R')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, EAST))
   }
+
+  @Test
+  fun `The rover turns to the north when I enter a 'R' command and the orientation is WEST`() {
+    // given
+    val rover = Rover(3, 8, WEST)
+    // when
+    val updatedRover = rover.receiveMission('R')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, NORTH))
+  }
+
+  @Test
+  fun `The rover turns to the west when I enter a 'R' command and the orientation is SOUTH`() {
+    // given
+    val rover = Rover(3, 8, SOUTH)
+    // when
+    val updatedRover = rover.receiveMission('R')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, WEST))
+  }
+
+  @Test
+  fun `The rover turns to the south when I enter a 'R' command and the orientation is EAST`() {
+    // given
+    val rover = Rover(3, 8, EAST)
+    // when
+    val updatedRover = rover.receiveMission('R')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, SOUTH))
+  }
+
+
+  @Test
+  fun `The rover not on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is SOUTH 4, 8`() {
+    // given
+    val rover = Rover(4, 8, SOUTH)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(4, 7, SOUTH))
+  }
+
+  @Test
+  fun `The rover not on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is NORTH 4, 8`() {
+    // given
+    val rover = Rover(4, 8, NORTH)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(4, 9, NORTH))
+  }
+
+  @Test
+  fun `The rover not on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is EAST 4, 8`() {
+    // given
+    val rover = Rover(4, 8, EAST)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(5, 8, EAST))
+  }
+
+  @Test
+  fun `The rover not on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is WEST 4, 8`() {
+    // given
+    val rover = Rover(4, 8, WEST)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, WEST))
+  }
+
+  @Test
+  fun `The rover is on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is SOUTH 4, 0`() {
+    // given
+    val rover = Rover(4, 0, SOUTH)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(4, 10, SOUTH))
+  }
+
+  @Test
+  fun `The rover is on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is NORTH 4, 10`() {
+    // given
+    val rover = Rover(4, 10, NORTH)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(4, 0, NORTH))
+  }
+
+  @Test
+  fun `The rover is on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is WEST 0, 3`() {
+    // given
+    val rover = Rover(0, 3, WEST)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(10, 3, WEST))
+  }
+
+  @Test
+  fun `The rover is on the edge of the map moves forward 1 step when I enter a 'F' command and the orientation is EAST 10, 3`() {
+    // given
+    val rover = Rover(10, 3, EAST)
+    // when
+    val updatedRover = rover.receiveMission('F')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(0, 3, EAST))
+  }
+}
