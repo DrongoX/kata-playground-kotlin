@@ -94,4 +94,53 @@ class RoverSpec {
     // expect
     assertThat(updatedRover).isEqualTo(Rover(5, 5, WEST))
   }
-}
+
+  @Test
+  fun `The rover not on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is WEST 3, 5`() {
+    // given
+    val rover = Rover(3, 5, WEST)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(4, 5, WEST))
+  }
+
+  @Test
+  fun `The rover not on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is WEST 2, 5`() {
+    // given
+    val rover = Rover(2, 5, WEST)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 5, WEST))
+  }
+  @Test
+  fun `The rover is on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is WEST 10, 5`() {
+    // given
+    val rover = Rover(10, 5, WEST)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(0, 5, WEST))
+  }
+
+  @Test
+  fun `The rover not on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is NORTH 3, 5`() {
+    // given
+    val rover = Rover(3, 5, Rover.Orientation.NORTH)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 4, NORTH))
+  }
+  @Test
+  fun `The rover is on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is NORTH 3, 0`() {
+    // given
+    val rover = Rover(3, 0, Rover.Orientation.NORTH)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 10, NORTH))
+  }
+
+  }
