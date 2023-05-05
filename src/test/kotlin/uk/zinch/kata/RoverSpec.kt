@@ -127,7 +127,7 @@ class RoverSpec {
   @Test
   fun `The rover not on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is NORTH 3, 5`() {
     // given
-    val rover = Rover(3, 5, Rover.Orientation.NORTH)
+    val rover = Rover(3, 5, NORTH)
     // when
     val updatedRover = rover.receiveMission('B')
     // expect
@@ -136,11 +136,69 @@ class RoverSpec {
   @Test
   fun `The rover is on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is NORTH 3, 0`() {
     // given
-    val rover = Rover(3, 0, Rover.Orientation.NORTH)
+    val rover = Rover(3, 0, NORTH)
     // when
     val updatedRover = rover.receiveMission('B')
     // expect
     assertThat(updatedRover).isEqualTo(Rover(3, 10, NORTH))
   }
 
+  @Test
+  fun `The rover is not on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is EAST 3, 2`() {
+    // given
+    val rover = Rover(3, 2, EAST)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(2, 2, EAST))
+  }
+
+  @Test
+  fun `The rover is on the edge of the map moves backward 1 step when I enter a 'B' command and the orientation is EAST 0, 2`() {
+    // given
+    val rover = Rover(0, 2, EAST)
+    // when
+    val updatedRover = rover.receiveMission('B')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(10, 2, EAST))
+  }
+  @Test
+  fun `The rover turns to the west when I enter a 'L' command and the orientation is NORTH`() {
+    // given
+    val rover = Rover(3, 8, NORTH)
+    // when
+    val updatedRover = rover.receiveMission('L')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, WEST))
+  }
+
+  @Test
+  fun `The rover turns to the south when I enter a 'L' command and the orientation is WEST`() {
+    // given
+    val rover = Rover(3, 8, WEST)
+    // when
+    val updatedRover = rover.receiveMission('L')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, SOUTH))
+  }
+
+  @Test
+  fun `The rover turns to the east when I enter a 'L' command and the orientation is SOUTH`() {
+    // given
+    val rover = Rover(3, 8, SOUTH)
+    // when
+    val updatedRover = rover.receiveMission('L')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, EAST))
+  }
+
+  @Test
+  fun `The rover turns to the north when I enter a 'L' command and the orientation is EAST`() {
+    // given
+    val rover = Rover(3, 8, EAST)
+    // when
+    val updatedRover = rover.receiveMission('L')
+    // expect
+    assertThat(updatedRover).isEqualTo(Rover(3, 8, NORTH))
+  }
   }
