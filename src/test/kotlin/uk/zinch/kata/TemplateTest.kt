@@ -1,17 +1,18 @@
 package uk.zinch.kata
 
-import org.assertj.core.api.Assertions.*
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.ShouldSpec
+import io.kotest.matchers.shouldBe
 
-
-class TemplateTest {
-  @Test
-  fun `this is a test example asserting 2x2=4`() {
-    //given
-    val template = Template()
-    //when
-    val result = template.multiply(2, 2)
-    //then
-    assertThat(result).isEqualTo(4)
-  }
-}
+class TemplateTest: ShouldSpec(
+  {
+    context("multiply function") {
+      should("return 4 for input 2x2") {
+        // given
+        val template = Template()
+        // when
+        val result = template.multiply(2, 2)
+        // then
+        result shouldBe 4
+      }
+    }
+  })
