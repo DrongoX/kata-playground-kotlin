@@ -1,17 +1,15 @@
 package uk.zinch.kata
 
+
 class RpnCalculator {
 
   fun calculate(expression: String) : Int =
-    if(isSum(expression)) {
-      calculateSum(expression)
-    } else {
-      calculateConstant(expression)
+    when {
+      isConstant(expression) -> calculateConstant(expression)
+      else -> Operation.from(expression).execute(firstOperandFrom(expression), secondOperandFrom(expression))
     }
 
   private val DELIMITER = " "
-
-  private fun calculateSum(expression: String) : Int = firstOperandFrom(expression) + secondOperandFrom(expression)
 
   private fun firstOperandFrom(expression: String): Int = expression.split(DELIMITER)[0].toInt()
 
@@ -19,11 +17,17 @@ class RpnCalculator {
 
   private fun calculateConstant(expression: String) = expression.toInt()
 
-  private fun isSum(expression: String) = expression.contains("+")
-
-
-  // TEST
+  private fun isConstant(expression: String) = expression.contains(DELIMITER).not()
+}
 
 
 
+enum class Operation(val symbol: String, val operation: (Int, Int) -> Int){
+    SUM("+",{a,b -> a+b}), PRODUCT("*", {a,b -> a*b}), SUBTRACTION("-", {a,b -> a-b}), DIVISION("/",{a,b -> a/b});
+
+  fun execute(firstOperandFrom: Int, secondOperandFrom: Int): Int = operation(firstOperandFrom, secondOperandFrom)
+
+  companion object{
+     fun from (expression: String): Operation  = values().first { expression.contains(it.symbol) }
+   }
 }

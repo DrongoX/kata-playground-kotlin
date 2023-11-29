@@ -59,4 +59,29 @@ class RpnCalculatorTest: ShouldSpec(
       val result = RpnCalculator().calculate("15 7 +")
       result shouldBe 22
     }
+
+    should("return 25 for input 5 5 *") {
+      val result = RpnCalculator().calculate("5 5 *")
+      result shouldBe 25
+    }
+
+    should("return 100 for input 10 10 *") {
+      val result = RpnCalculator().calculate("10 10 *")
+      result shouldBe 100
+    }
+
+    should("return 5 for input 10 5 -"){
+      val result = RpnCalculator().calculate("10 5 -")
+      result shouldBe 5
+    }
+
+    should("return -2 for input 3 5 -"){
+      val result = RpnCalculator().calculate("3 5 -")
+      result shouldBe -2
+    }
+
+    should("return 2 for input 10 5 /"){
+      val result = RpnCalculator().calculate("10 5 /")
+      result shouldBe 2
+    }
   })
