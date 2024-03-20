@@ -1,5 +1,5 @@
 plugins {
-  id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+  id 'org.jetbrains.kotlin.jvm' version '1.9.23'
 }
 
 repositories {
@@ -8,10 +8,22 @@ repositories {
 
 dependencies {
   implementation 'org.jetbrains.kotlin:kotlin-stdlib'
-  testImplementation 'io.kotest:kotest-runner-junit5:5.8.0'
   testImplementation 'io.kotest:kotest-assertions-core:5.8.0'
+
+  testImplementation(platform("org.junit:junit-bom:5.10.2"))
+  testImplementation(platform("io.cucumber:cucumber-bom:7.15.0"))
+
+  testImplementation("io.cucumber:cucumber-java8")
+  testImplementation("io.cucumber:cucumber-junit-platform-engine")
+  testImplementation("org.junit.platform:junit-platform-suite")
+  testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-test {
+tasks.withType(Test).configureEach {
   useJUnitPlatform()
+  // Work around. Gradle does not include enough information to disambiguate
+  // between different examples and scenarios.
+  systemProperty("cucumber.junit-platform.naming-strategy", "long")
+  systemProperty("cucumber.plugin", "pretty")
+  systemProperty("cucumber.glue", "uk.zinch.kata")
 }
